@@ -12,6 +12,7 @@ function LoginLink({setLogin}) {
 				setLogin(false)
 				cookies.remove('access_token')
 				cookies.remove('user')
+				cookies.remove('roomId')
 				window.location.replace('/signin')
 			})
 			.catch(err => {
