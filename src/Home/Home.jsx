@@ -10,7 +10,7 @@ function Home(props) {
 	//Fetch Product
 	useEffect(() => {
 		const fetchData = async () => {
-			const response = await ProductAPI.getAPI();
+			const response = await ProductAPI.getAPI({search:''});
 
 			const data = response.splice(0, 8);
 
