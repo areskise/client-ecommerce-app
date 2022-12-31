@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import queryString from 'query-string';
 import ProductAPI from '../API/ProductAPI';
 import Image from '../Share/img/Image';
 import convertMoney from '../convertMoney';
@@ -10,8 +11,13 @@ function Home(props) {
 	//Fetch Product
 	useEffect(() => {
 		const fetchData = async () => {
-			const response = await ProductAPI.getAPI({search:''});
+			const params = {search: ''};
 
+			const query = queryString.stringify(params);
+
+			const newQuery = '?' + query;
+			const response = await ProductAPI.getAPI(newQuery);
+			console.log(response);
 			const data = response.splice(0, 8);
 
 			setProducts(data);
@@ -41,9 +47,8 @@ function Home(props) {
 													className='product-view d-block h-100 bg-cover bg-center'
 													src={value.img1}
 													data-lightbox={`product_${value._id}`}
+													alt={value.name}
 												/>
-												<img className='d-none' href={value.img2} />
-												<img className='d-none' href={value.img3} />
 											</div>
 											<div className='col-lg-6'>
 												{/* Để tắt modal phải có class="close" và data-dissmiss="modal" và aria-label="Close" */}
