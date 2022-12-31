@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
+import Cookies from 'universal-cookie';
 import UserAPI from '../API/UserAPI';
 import './Auth.css';
 
 function SignIn() {
+	const cookies = new Cookies();
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 
@@ -62,6 +64,9 @@ function SignIn() {
 
 						UserAPI.postSignIn(body)
 							.then(res => {
+								console.log(res);
+								cookies.set('access_token', res.token, {maxAge: 86400000})
+								cookies.set('user', res.user, {maxAge: 86400000})
 								setRedirect(true);
 								window.location.reload()
 							})

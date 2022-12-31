@@ -23,6 +23,7 @@ function Chat(props) {
 			setActiveChat(!activeChat);
 			ChatRoomsAPI.getRoomByUser(userId)
 				.then(res => {
+					cookies.set('roomId', res._id, {maxAge: 86400000});
 					setMessage(res.messages);
 				})
 				.catch(err => console.log(err));
@@ -31,15 +32,17 @@ function Chat(props) {
 		}
 	};
 
-	const endChat = async () => {
+	const endChat = () => {
 		if(roomId) {
-			await ChatRoomsAPI.endRoom({roomId: roomId});
-
-			setTextMessage('');
-			setMessage([]);
-			setActiveChat(false);
-
-			return;
+			ChatRoomsAPI.endRoom({roomId: roomId})
+				.then(res => {
+					cookies.remove('roomId');
+					setTextMessage('');
+					setMessage([]);
+					setActiveChat(false);
+					return;
+				})
+				.catch(err => console.log(err));
 		}
 	};
 
@@ -52,13 +55,15 @@ function Chat(props) {
 		
 		// Check if text equal "/end" then end room
 		if(roomId && textMessage.toLowerCase() === '/end') {
-			ChatRoomsAPI.endRoom({roomId: roomId});
-
-			setTextMessage('');
-			setMessage([]);
-			setActiveChat(false);
-
-			return;
+			ChatRoomsAPI.endRoom({roomId: roomId})
+				.then(res => {
+					cookies.remove('roomId');
+					setTextMessage('');
+					setMessage([]);
+					setActiveChat(false);
+					return;
+				})
+				.catch(err => console.log(err));
 		}
 
 		// Check if roomId is null then create new Room
@@ -70,6 +75,8 @@ function Chat(props) {
 						roomId: newRoomId,
 						is_admin: false,
 					};
+
+					cookies.set('roomId', newRoomId, {maxAge: 86400000});
 			
 					//Tiếp theo nó sẽ postdata lên api đưa dữ liệu vào database
 					ChatRoomsAPI.addMessage(data);
