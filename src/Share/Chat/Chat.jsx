@@ -137,7 +137,7 @@ function Chat(props) {
 		// 	setLoad(true);
 		// });
 		channel.bind('send_message', function (data) {
-            console.log(data);
+            console.log('send_message: ', data);
             setLoad(true);
         });
 	}, []);
