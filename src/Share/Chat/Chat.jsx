@@ -31,7 +31,7 @@ function Chat(props) {
 			ChatRoomsAPI.getRoomByUser(userId)
 				.then(res => {
 					console.log(res);
-					if (res) {
+					if (res.data) {
 						cookies.set('roomId', res._id, {maxAge: 86400000});
 						setMessage(res.messages);						
 					} else {
