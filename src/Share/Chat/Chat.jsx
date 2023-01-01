@@ -88,12 +88,11 @@ function Chat(props) {
 						roomId: newRoomId,
 						is_admin: false,
 					};
-
-					cookies.set('roomId', newRoomId, {maxAge: 86400000});
-			
+					
 					//Tiếp theo nó sẽ postdata lên api đưa dữ liệu vào database
 					ChatRoomsAPI.addMessage(data)
 						.then(res => {
+							cookies.set('roomId', newRoomId, {maxAge: 86400000});
 							setTextMessage('');
 							// setTimeout(() => {
 							// 	// socket.emit('send_message', data);
@@ -134,9 +133,7 @@ function Chat(props) {
 						setMessage(res.messages);
 					})
 				.catch(err => console.log(err))
-		} else {
-            setMessage([]);
-        }
+		}
 	};
 
 	useEffect(() => {
