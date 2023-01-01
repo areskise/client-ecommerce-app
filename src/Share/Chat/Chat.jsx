@@ -30,7 +30,7 @@ function Chat(props) {
 			setActiveChat(!activeChat);
 			ChatRoomsAPI.getRoomByUser(userId)
 				.then(res => {
-					console.log(res);
+					console.log(res.data);
 					if (res.data) {
 						cookies.set('roomId', res._id, {maxAge: 86400000});
 						setMessage(res.messages);						
