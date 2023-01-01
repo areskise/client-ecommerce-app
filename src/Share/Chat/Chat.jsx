@@ -80,6 +80,7 @@ function Chat(props) {
 		if (!roomId) {
 			ChatRoomsAPI.createNewRoom()
 				.then(newRoomId => {
+					console.log(newRoomId);
 					const data = {
 						message: textMessage,
 						roomId: newRoomId,
