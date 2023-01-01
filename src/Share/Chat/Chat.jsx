@@ -86,12 +86,16 @@ function Chat(props) {
 					cookies.set('roomId', newRoomId, {maxAge: 86400000});
 			
 					//Tiếp theo nó sẽ postdata lên api đưa dữ liệu vào database
-					ChatRoomsAPI.addMessage(data);
-					setTextMessage('');
-					// setTimeout(() => {
-					// 	// socket.emit('send_message', data);
-					// 	// channel.trigger("send_message", data);
-					// }, 200);
+					ChatRoomsAPI.addMessage(data)
+						.then(res => {
+							setTextMessage('');
+							// setTimeout(() => {
+							// 	// socket.emit('send_message', data);
+							// 	// channel.trigger("send_message", data);
+							// }, 200);
+							setLoad(true);
+						})
+						.catch(err => console.log(err))
 				})
 				.catch(err => console.log(err))
 		} else {
@@ -102,17 +106,17 @@ function Chat(props) {
 			};
 	
 			//Tiếp theo nó sẽ postdata lên api đưa dữ liệu vào database
-			ChatRoomsAPI.addMessage(data);
-			setTextMessage('');
-			
-			// setTimeout(() => {
-			// 	// socket.emit('send_message', data);
-			// 	// channel.trigger("send_message", data);
-			// }, 200);
+			ChatRoomsAPI.addMessage(data)
+				.then(res => {
+					setTextMessage('');
+					// setTimeout(() => {
+					// 	// socket.emit('send_message', data);
+					// 	// channel.trigger("send_message", data);
+					// }, 200);
+					setLoad(true);
+				})
+				.catch(err => console.log(err))
 		}
-		setTimeout(() => {
-			setLoad(true)
-		}, 500);
 	};
 
 	const fetchData = async () => {
