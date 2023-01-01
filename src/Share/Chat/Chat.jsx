@@ -3,8 +3,14 @@ import './Chat.css';
 import Cookies from 'universal-cookie';
 import ChatRoomsAPI from '../../API/ChatRoomsAPI';
 
-import io from 'socket.io-client';
-const socket = io('https://server-ecommerce-app.vercel.app/', { transports : ['websocket']});
+// import io from 'socket.io-client';
+// const socket = io('https://server-ecommerce-app.vercel.app/', { transports : ['websocket']});
+import Pusher from 'pusher-js';
+let pusher = new Pusher('eab36ba3e13ebc083cfe', {
+    cluster: 'ap1',
+});
+
+let channel = pusher.subscribe('ecommerce-app');
 
 function Chat(props) {
 	const cookies = new Cookies();
@@ -81,7 +87,7 @@ function Chat(props) {
 					//Tiếp theo nó sẽ postdata lên api đưa dữ liệu vào database
 					ChatRoomsAPI.addMessage(data);
 					setTextMessage('');
-					socket.emit('send_message', data);
+					// socket.emit('send_message', data);
 				})
 				.catch(err => console.log(err))
 		} else {
@@ -95,9 +101,9 @@ function Chat(props) {
 			ChatRoomsAPI.addMessage(data);
 			setTextMessage('');
 			
-			setTimeout(() => {
-				socket.emit('send_message', data);
-			}, 200);
+			// setTimeout(() => {
+			// 	socket.emit('send_message', data);
+			// }, 200);
 		}
 		setLoad(true)
 	};
@@ -120,13 +126,15 @@ function Chat(props) {
 		setLoad(true);
 	}, [roomId])
 
-	//Hàm này dùng để nhận socket từ server gửi lên
 	useEffect(() => {
-		//Nhận dữ liệu từ server gửi lên thông qua socket với key receive_message
-		socket.on('send_message', (data) => {
-			//Sau đó nó sẽ setLoad gọi lại hàm useEffect lấy lại dữ liệu
-			setLoad(true);
-		});
+		// socket.on('send_message', (data) => {
+        //     console.log(data);
+		// 	setLoad(true);
+		// });
+		channel.bind('send_message', function (data) {
+            console.log(data);
+            setLoad(true);
+        });
 	}, []);
 
 	return (
