@@ -125,7 +125,7 @@ function Chat(props) {
 		}
 	};
 
-	const fetchData = () => {
+	const fetchMess = () => {
 		console.log(roomId);
 		if(roomId) {
 			ChatRoomsAPI.getMessageByRoomId(roomId)
@@ -141,6 +141,7 @@ function Chat(props) {
 
 	useEffect(() => {
 		if (load) {
+			fetchMess();
 			setLoad(false);
 		}
 	}, [load]);
@@ -155,7 +156,6 @@ function Chat(props) {
 		// 	setLoad(true);
 		// });
 		channel.bind('send_message', function (data) {
-			fetchData();
             setLoad(true);
             console.log('send_message: ', data);
         });
