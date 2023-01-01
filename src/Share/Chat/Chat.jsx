@@ -128,7 +128,7 @@ function Chat(props) {
 			ChatRoomsAPI.getMessageByRoomId(roomId)
 				.then(res => {
 						console.log(res);
-						setMessage(res.data.messages);
+						setMessage(res.messages);
 					})
 				.catch(err => console.log(err))
 		} else {
