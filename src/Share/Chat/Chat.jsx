@@ -6,12 +6,12 @@ import ChatRoomsAPI from '../../API/ChatRoomsAPI';
 // import io from 'socket.io-client';
 // const socket = io('https://server-ecommerce-app.vercel.app/', { transports : ['websocket']});
 import Pusher from 'pusher-js';
-let pusher = new Pusher('eab36ba3e13ebc083cfe', {
+const pusher = new Pusher('eab36ba3e13ebc083cfe', {
     cluster: 'ap1',
 	encrypted: true
 });
 
-let channel = pusher.subscribe('ecommerce-app');
+const channel = pusher.subscribe('ecommerce-app');
 
 function Chat(props) {
 	const cookies = new Cookies();
@@ -30,8 +30,11 @@ function Chat(props) {
 			setActiveChat(!activeChat);
 			ChatRoomsAPI.getRoomByUser(userId)
 				.then(res => {
-					cookies.set('roomId', res._id, {maxAge: 86400000});
-					setMessage(res.messages);
+					console.log(res);
+					if (res) {
+						cookies.set('roomId', res._id, {maxAge: 86400000});
+						setMessage(res.messages);						
+					}
 				})
 				.catch(err => console.log(err));
 		} else {
@@ -143,8 +146,8 @@ function Chat(props) {
 		// 	setLoad(true);
 		// });
 		channel.bind('send_message', function (data) {
-            console.log('send_message: ', data);
             setLoad(true);
+            console.log('send_message: ', data);
         });
 	}, []);
 
