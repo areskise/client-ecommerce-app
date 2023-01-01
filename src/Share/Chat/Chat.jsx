@@ -242,7 +242,7 @@ function Chat(props) {
 									onChange={onChangeText}
 									value={textMessage}
 									style={{width: "80%"}}
-									onKeyPress={(e) => {
+									onKeyDown={(e) => {
 										if (e.key === 'Enter') {
 											handlerSend();
 										}

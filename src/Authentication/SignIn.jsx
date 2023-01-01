@@ -128,6 +128,11 @@ function SignIn() {
 							placeholder='Email'
 							value={email}
 							onChange={onChangeEmail}
+							onKeyDown={(e) => {
+								if (e.key === 'Enter') {
+									onSubmit();
+								}
+							}}
 						/>
 					</div>
 
@@ -138,6 +143,11 @@ function SignIn() {
 							placeholder='Password'
 							value={password}
 							onChange={onChangePassword}
+							onKeyDown={(e) => {
+								if (e.key === 'Enter') {
+									onSubmit();
+								}
+							}}
 						/>
 					</div>
 
