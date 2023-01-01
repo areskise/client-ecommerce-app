@@ -88,10 +88,10 @@ function Chat(props) {
 					//Tiếp theo nó sẽ postdata lên api đưa dữ liệu vào database
 					ChatRoomsAPI.addMessage(data);
 					setTextMessage('');
-					setTimeout(() => {
-						// socket.emit('send_message', data);
-						// channel.trigger("send_message", data);
-					}, 200);
+					// setTimeout(() => {
+					// 	// socket.emit('send_message', data);
+					// 	// channel.trigger("send_message", data);
+					// }, 200);
 				})
 				.catch(err => console.log(err))
 		} else {
@@ -105,10 +105,10 @@ function Chat(props) {
 			ChatRoomsAPI.addMessage(data);
 			setTextMessage('');
 			
-			setTimeout(() => {
-				// socket.emit('send_message', data);
-				// channel.trigger("send_message", data);
-			}, 200);
+			// setTimeout(() => {
+			// 	// socket.emit('send_message', data);
+			// 	// channel.trigger("send_message", data);
+			// }, 200);
 		}
 		setLoad(true)
 	};
