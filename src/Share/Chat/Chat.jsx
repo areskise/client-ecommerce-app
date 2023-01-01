@@ -8,6 +8,7 @@ import ChatRoomsAPI from '../../API/ChatRoomsAPI';
 import Pusher from 'pusher-js';
 let pusher = new Pusher('eab36ba3e13ebc083cfe', {
     cluster: 'ap1',
+	encrypted: true
 });
 
 let channel = pusher.subscribe('ecommerce-app');
@@ -89,7 +90,7 @@ function Chat(props) {
 					setTextMessage('');
 					setTimeout(() => {
 						// socket.emit('send_message', data);
-						channel.trigger("send_message", data);
+						// channel.trigger("send_message", data);
 					}, 200);
 				})
 				.catch(err => console.log(err))
@@ -106,7 +107,7 @@ function Chat(props) {
 			
 			setTimeout(() => {
 				// socket.emit('send_message', data);
-				channel.trigger("send_message", data);
+				// channel.trigger("send_message", data);
 			}, 200);
 		}
 		setLoad(true)
