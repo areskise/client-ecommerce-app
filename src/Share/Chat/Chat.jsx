@@ -34,6 +34,8 @@ function Chat(props) {
 					if (res) {
 						cookies.set('roomId', res._id, {maxAge: 86400000});
 						setMessage(res.messages);						
+					} else {
+						setMessage([])
 					}
 				})
 				.catch(err => console.log(err));
@@ -160,7 +162,7 @@ function Chat(props) {
 
 	return (
 		<div className='wrapper_chat'>
-			<div className='chat_messenger' onClick={onChat}>
+			<div className='chat_messenger' onClick={() => onChat()}>
 				<svg x='0' y='0' width='60px' height='60px'>
 					<g stroke='none' strokeWidth='1' fill='none' fillRule='evenodd'>
 						<g>
