@@ -17,7 +17,6 @@ function Home(props) {
 
 			const newQuery = '?' + query;
 			const response = await ProductAPI.getAPI(newQuery);
-			console.log(response);
 			const data = response.splice(0, 8);
 
 			setProducts(data);
