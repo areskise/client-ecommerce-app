@@ -79,7 +79,7 @@ function Chat(props) {
 		}
 
 		// Check if roomId is null then create new Room
-		if (!roomId) {
+		if (!roomId && textMessage) {
 			ChatRoomsAPI.createNewRoom()
 				.then(newRoomId => {
 					console.log(newRoomId);
@@ -103,7 +103,7 @@ function Chat(props) {
 						.catch(err => console.log(err))
 				})
 				.catch(err => console.log(err))
-		} else {
+		} else if(textMessage) {
 			const data = {
 				message: textMessage,
 				roomId: roomId,
