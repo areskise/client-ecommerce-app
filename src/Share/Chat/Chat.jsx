@@ -110,7 +110,9 @@ function Chat(props) {
 			// 	// channel.trigger("send_message", data);
 			// }, 200);
 		}
-		setLoad(true)
+		setTimeout(() => {
+			setLoad(true)
+		}, 500);
 	};
 
 	const fetchData = async () => {
