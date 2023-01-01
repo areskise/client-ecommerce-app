@@ -123,11 +123,17 @@ function Chat(props) {
 		}
 	};
 
-	const fetchData = async () => {
+	const fetchData = () => {
 		if(roomId) {
-			const response = await ChatRoomsAPI.getMessageByRoomId(roomId);
-			setMessage(response.messages);
-		}
+			ChatRoomsAPI.getMessageByRoomId(roomId)
+				.then(res => {
+						console.log(res);
+						setMessage(res.data.messages);
+					})
+				.catch(err => console.log(err))
+		} else {
+            setMessage([]);
+        }
 	};
 
 	useEffect(() => {
