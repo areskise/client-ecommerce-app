@@ -117,8 +117,11 @@ function Checkout(props) {
 							const query = '?' + queryString.stringify(params);
 							
 							CheckoutAPI.postOrder(query)
-								.then(res=> console.log('test'))
-							window.location.replace('/history')
+								.then(res=> {
+									console.log(res);
+									window.location.replace('/history')
+								})
+								.catch(err => console.log(err))
 						}
 					}
 				}
