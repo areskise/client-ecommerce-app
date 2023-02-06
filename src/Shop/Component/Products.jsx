@@ -39,7 +39,7 @@ function Products(props) {
 								<div className='position-relative mb-3'>
 									<div className='badge text-white badge-'></div>
 										<img
-											className='img-fluid w-100'
+											className='img-fluid w-100 ratio ratio-1x1'
 											src={value.img1}
 											alt={value.name}
 										/>
